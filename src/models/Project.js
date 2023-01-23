@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ProjectSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  projectName: { type: String, required: true },
   startDate: { type: String, required: true },
   isOnGoing: { type: Boolean, required: true },
   endDate: { type: String, required: false },
@@ -9,7 +9,7 @@ const ProjectSchema = new mongoose.Schema({
   role: { type: String, required: true },
   description: { type: String, required: true },
   achievements: { type: String, required: true },
-  teckStack: { type: [String], required: true },
+  teckStack: { type: [String], required: false },
   activeUrl: { type: String },
   sourceUrl: { type: String }
 }, {collection: "userinfo"});
