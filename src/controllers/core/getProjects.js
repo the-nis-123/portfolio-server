@@ -2,7 +2,7 @@ const Project = require('../../models/Project');
 
 module.exports = async (req, res) => {
   try{
-    const response = await Project().find();
+    const response = await Project.find();
     console.log(response);
     return res.status(200).json(response);
   }catch(err){

@@ -13,7 +13,7 @@ const {
 router.route('/profile')
 .get(getBiography);
 
-router.route('/projetcs')
+router.route('/projects')
 .get(getProjets);
 
 router.route('/awards')
