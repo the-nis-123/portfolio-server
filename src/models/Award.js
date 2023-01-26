@@ -5,7 +5,7 @@ const AwardSchema = new mongoose.Schema({
   awardedBy: { type: String, required: true },
   files: { type: [String]},
   url:  { type: String }
-}, {collection: "userinfo"});
+}, {collection: "awards"});
 
 module.exports = mongoose.model('Award', AwardSchema);
 

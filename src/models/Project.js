@@ -12,6 +12,6 @@ const ProjectSchema = new mongoose.Schema({
   teckStack: { type: [String], required: false },
   activeUrl: { type: String },
   sourceUrl: { type: String }
-}, {collection: "userinfo"});
+}, {collection: "projects"});
 
 module.exports = mongoose.model('Project', ProjectSchema);

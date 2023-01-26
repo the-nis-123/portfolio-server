@@ -18,7 +18,7 @@ const BioSchema = new mongoose.Schema({
   education: {type: [Object]},
   socialHandles: {type: [Object]},
   highlights: {type: [Object]}
-}, {collection: "userinfo"});
+}, {collection: "user"});
 
 module.exports = mongoose.model('Biography', BioSchema);
 
