@@ -15,9 +15,6 @@ module.exports = async (req, res) => {
     resume = filesObject?.resume? filesObject.resume[0].filename : "";
     avatar = filesObject?.avatar? filesObject.avatar[0].filename : "";
     gallery = filesObject?.files? filesObject.files.map(file => file.filename) : [];
-
-    resume && {...newData, resume};
-    avatar && {...newData, avatar};
    
     education &&  await Biography.updateOne({name: 'kintu denis'}, { $addToSet: {education: JSON.parse(education)}});
     socialHandles && await Biography.updateOne({name: 'kintu denis'}, {$addToSet: {socialHandles:JSON.parse(socialHandles)}});
@@ -27,6 +24,11 @@ module.exports = async (req, res) => {
     hobbies && await Biography.updateOne({name: 'kintu denis'}, {$addToSet: {hobbies: hobbies}});
     gallery && await Biography.updateOne({name: 'kintu denis'}, {$addToSet: {gallery: {$each: gallery}}}); 
     
+    
+    resume && {...newData, resume};
+    avatar && {...newData, avatar};
+
+    console.log(resume, avatar);
     const response = await Biography.updateOne({name: 'kintu denis'}, {...newData});
         
     return res.status(200).json({"message": "Updated successfully"});
