@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
       highlights, ...newData
     } = req.body;
 
-    console.log(req.body, "education", education);
+    console.log(req.files, "education", education);
 
     let filesObject = req?.files || null;
     resume = filesObject?.resume? filesObject.resume[0].filename : "";
