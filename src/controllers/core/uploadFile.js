@@ -24,6 +24,7 @@ const storage = new GridFsStorage({
 
         if(err) {
           req.err = err;
+          console.log(err);
           return reject(err)
         };
 
