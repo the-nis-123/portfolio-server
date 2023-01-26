@@ -17,14 +17,12 @@ const {
 
 router.route('/profile')
 .post(uploadFile.fields([
-  {name: "files", maxCount: 12},
-  {name: "avatar", maxCount: 1},
-  {name: "resume", maxCount: 1}
+  {name: "avatar", maxCount: 3},
+  {name: "resume", maxCount: 3}
 ]), addBiography)
 .patch(uploadFile.fields([
-  {name: "files", maxCount: 12},
-  {name: "avatar", maxCount: 1},
-  {name: "resume", maxCount: 1}
+  {name: "avatar", maxCount: 3},
+  {name: "resume", maxCount: 3}
 ]), editBiography);
 
 
