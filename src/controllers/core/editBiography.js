@@ -10,7 +10,11 @@ module.exports = async (req, res) => {
     } = req.body;
 
 
+    
     let filesObject = req?.files || null;
+
+    console.log("files", filesObject);
+
     let resume = filesObject?.resume? filesObject.resume[0].filename : "";
     let avatar = filesObject?.avatar? filesObject.avatar[0].filename : "";
     gallery = filesObject?.files? filesObject.files.map(file => file.filename) : [];
