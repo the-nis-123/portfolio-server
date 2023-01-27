@@ -2,7 +2,7 @@ const Award = require('../../models/Award');
 
 module.exports = async (req, res) => {
   try{
-    const response = await Award().find();
+    const response = await Award.find();
     console.log(response);
     return res.status(200).json(response);
   }catch(err){
