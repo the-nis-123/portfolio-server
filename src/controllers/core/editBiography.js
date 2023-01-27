@@ -3,7 +3,7 @@ const Biography = require('../../models/Biography');
 module.exports = async (req, res) => {
   try{
     let {
-      gallery, skills, 
+      skills, 
       education, otherSkills,
       hobbies, socialHandles, 
       highlights, ...newData
@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
 
     let resume = filesObject?.resume? filesObject.resume[0].filename : "";
     let avatar = filesObject?.avatar? filesObject.avatar[0].filename : "";
-    gallery = filesObject?.files? filesObject.files.map(file => file.filename) : [];
+    let gallery = filesObject?.files? filesObject.files.map(file => file.filename) : [];
    
     education &&  await Biography.updateOne({name: 'kintu denis'}, { $addToSet: {education: JSON.parse(education)}});
     socialHandles && await Biography.updateOne({name: 'kintu denis'}, {$addToSet: {socialHandles:JSON.parse(socialHandles)}});

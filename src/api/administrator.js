@@ -16,8 +16,8 @@ const {
 
 
 router.route('/profile')
-.post(addBiography)
-.patch(editBiography);
+.post(uploadFile.none(), addBiography)
+.patch(uploadFile.none(), editBiography);
 
 
 router.route('/projects')
