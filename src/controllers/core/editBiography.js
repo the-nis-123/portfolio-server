@@ -25,12 +25,9 @@ module.exports = async (req, res) => {
     otherSkills && await Biography.updateOne({name: 'kintu denis'}, {$addToSet: {otherSkills: otherSkills}});
     hobbies && await Biography.updateOne({name: 'kintu denis'}, {$addToSet: {hobbies: hobbies}});
     gallery && await Biography.updateOne({name: 'kintu denis'}, {$addToSet: {gallery: {$each: gallery}}}); 
-    
-    
-    newData = resume ? {...newData, resume} : newData;
-    newData = avatar ? {...newData, avatar} : newData;
-
-    await Biography.updateOne({name: 'kintu denis'}, {...newData});
+    resume && await Biography.updateOne({name: 'kintu denis'}, resume); 
+    avatar && await Biography.updateOne({name: 'kintu denis'}, avatar); 
+    newData && await Biography.updateOne({name: 'kintu denis'}, {...newData});
         
     return res.status(200).json({"message": "Updated successfully"});
 
