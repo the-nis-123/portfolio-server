@@ -10,12 +10,10 @@ module.exports = async (req, res) => {
     password = await bcrypt.hash(password, salt);
     email = await bcrypt.hash(email, salt);
     const response = await Biography({password, email, ...userData}).save();
-    console.log(response);
     return res.json(response);
 
   }catch(err){
     req.err = err;
-    console.error(err);
     return res.status(500).json({message: 'Something went wrong'});
   }
 }

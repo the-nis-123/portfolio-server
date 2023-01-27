@@ -3,17 +3,16 @@ const Biography = require('../../models/Biography');
 module.exports = async (req, res) => {
   try{
     let {
-      resume, avatar, gallery, skills, 
+      gallery, skills, 
       education, otherSkills,
       hobbies, socialHandles, 
       highlights, ...newData
     } = req.body;
 
-    console.log(req.files, "education", education);
 
     let filesObject = req?.files || null;
-    resume = filesObject?.resume? filesObject.resume[0].filename : "";
-    avatar = filesObject?.avatar? filesObject.avatar[0].filename : "";
+    let resume = filesObject?.resume? filesObject.resume[0].filename : "";
+    let avatar = filesObject?.avatar? filesObject.avatar[0].filename : "";
     gallery = filesObject?.files? filesObject.files.map(file => file.filename) : [];
    
     education &&  await Biography.updateOne({name: 'kintu denis'}, { $addToSet: {education: JSON.parse(education)}});
@@ -34,7 +33,6 @@ module.exports = async (req, res) => {
 
   }catch(err){
     req.err = err;
-    console.error(err);
     return res.status(500).json({message: 'Something went wrong'});
   }
 }
