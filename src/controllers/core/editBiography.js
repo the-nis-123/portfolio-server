@@ -25,10 +25,9 @@ module.exports = async (req, res) => {
     gallery && await Biography.updateOne({name: 'kintu denis'}, {$addToSet: {gallery: {$each: gallery}}}); 
     
     
-    resume && {...newData, resume};
-    avatar && {...newData, avatar};
+    newData = resume ? {...newData, resume} : newData;
+    newData = avatar ? {...newData, avatar} : newData;
 
-    console.log(resume, avatar);
     const response = await Biography.updateOne({name: 'kintu denis'}, {...newData});
         
     return res.status(200).json({"message": "Updated successfully"});
