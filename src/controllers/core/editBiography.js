@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
     newData = resume ? {...newData, resume} : newData;
     newData = avatar ? {...newData, avatar} : newData;
 
-    const response = await Biography.updateOne({name: 'kintu denis'}, {...newData});
+    await Biography.updateOne({name: 'kintu denis'}, {...newData});
         
     return res.status(200).json({"message": "Updated successfully"});
 
