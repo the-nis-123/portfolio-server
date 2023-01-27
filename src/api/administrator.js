@@ -16,14 +16,8 @@ const {
 
 
 router.route('/profile')
-.post(uploadFile.fields([
-  {name: "avatar", maxCount: 3},
-  {name: "resume", maxCount: 3}
-]), addBiography)
-.patch(uploadFile.fields([
-  {name: "avatar", maxCount: 3},
-  {name: "resume", maxCount: 3}
-]), editBiography);
+.post(addBiography)
+.patch(editBiography);
 
 
 router.route('/projects')
@@ -45,7 +39,11 @@ router.route('/awards/:id')
 
 
 router.route('/files')
-.post(uploadFile.fields([{name: "files", maxCount: 12}]), editBiography);
+.post(uploadFile.fields([
+  {name: "files", maxCount: 12},
+  {name: "avatar", maxCount: 3},
+  {name: "resume", maxCount: 3}
+]), editBiography);
 
 
 router.route('/files/:id').delete(deleteFile);
