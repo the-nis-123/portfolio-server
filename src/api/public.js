@@ -19,7 +19,7 @@ router.route('/projects')
 router.route('/awards')
 .get(getAwards);
 
-router.route('/files/:id')
+router.route('/files/:filename')
 .get(getFile);
 
 
