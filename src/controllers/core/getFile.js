@@ -5,7 +5,7 @@ const connection = mongoose.connection;
 let gfs, gridfsBucket;
 
 connection.once('open', () => {
-  gridfsBucket = new mongoose.mongo.GridFSBucket(connection.db, { bucketName: 'productsFiles'});
+  gridfsBucket = new mongoose.mongo.GridFSBucket(connection.db, { bucketName: 'uploads'});
   gfs = GridStream(connection.db, mongoose.mongo);
   gfs.collection('uploads');
 })
@@ -24,7 +24,6 @@ module.exports = async (req, res) => {
     })
   }catch(err){
     req.err = err;
-    console.error(err);
     return  res.status(500).json({message: 'Something went wrong'});
   }
 }
