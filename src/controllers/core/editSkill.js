@@ -1,16 +1,18 @@
-const Project = require('../../models/Project');
+const Skill = require('../../models/Skill');
 
 module.exports = async (req, res) => {
+  console.log(req.body);
 
   try{
-    let file;
+    let file, newData;
 
     let filesObject = req?.files || null;
     file = filesObject?.files? filesObject.files[0].filename : "";
-    const response = await Project({...req.body, file}).save();
-    
-    return res.status(200).json(response);
-    
+
+    file && await Project.updateOne({_id: req.params.id}, {...newData, file});
+    !file && await Project.updateOne({_id: req.params.id}, {...newData});
+    return res.sendStatus(200);
+
   }catch(err){
     req.err = err;
     console.error(err);

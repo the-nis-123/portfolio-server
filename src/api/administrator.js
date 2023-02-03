@@ -10,7 +10,10 @@ const {
   newAward,
   newProject,
   editBiography,
-  addBiography
+  addBiography,
+  editSkill,
+  deleteSkill,
+  addSkill
 } = require('../controllers/core');
 
 
@@ -21,21 +24,31 @@ router.route('/profile')
 
 
 router.route('/projects')
-.post(uploadFile.fields([{name: "files", maxCount: 12}]), newProject);
+.post(uploadFile.fields([{name: "files", maxCount: 1}]), newProject);
 
 
 router.route('/projects/:id')
-.patch(uploadFile.fields([{name: "files", maxCount: 12}]), editProject)
+.patch(uploadFile.fields([{name: "files", maxCount: 1}]), editProject)
 .delete(deleteFile, deleteProject);
 
 
 router.route('/awards')
-.post(uploadFile.fields([{name: "files", maxCount: 12}]), newAward);
+.post(uploadFile.fields([{name: "files", maxCount: 1}]), newAward);
 
 
 router.route('/awards/:id')
-.patch(uploadFile.fields([{name: "files", maxCount: 12}]), editAward)
+.patch(uploadFile.fields([{name: "files", maxCount: 1}]), editAward)
 .delete(deleteFile, deleteAward);
+
+
+
+router.route('/skills')
+.post(uploadFile.fields([{name: "files", maxCount: 1}]), addSkill);
+
+
+router.route('/skills/:id')
+.patch(uploadFile.fields([{name: "files", maxCount: 1}]), editSkill)
+.delete(deleteFile, deleteSkill);
 
 
 router.route('/files')

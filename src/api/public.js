@@ -5,7 +5,8 @@ const {
  getFile,
  getProjets,
  getBiography,
- uploadFile
+ uploadFile,
+ getSkills
 } = require('../controllers/core');
 
 
@@ -18,6 +19,11 @@ router.route('/projects')
 
 router.route('/awards')
 .get(getAwards);
+
+
+router.route('/skills')
+.get(getSkills);
+
 
 router.route('/files/:filename')
 .get(getFile);

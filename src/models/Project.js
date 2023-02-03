@@ -5,11 +5,11 @@ const ProjectSchema = new mongoose.Schema({
   startDate: { type: String, required: true },
   isOnGoing: { type: Boolean, required: true },
   endDate: { type: String, required: false },
-  files: { type: [String], required: true },
+  file: { type: String, required: true },
   role: { type: String, required: true },
   description: { type: String, required: true },
   achievements: { type: String, required: true },
-  teckStack: { type: [String], required: false },
+  teckStack: { type: [mongoose.ObjectId], ref:"Skill",  required: true },
   activeUrl: { type: String },
   sourceUrl: { type: String }
 }, {collection: "projects"});
