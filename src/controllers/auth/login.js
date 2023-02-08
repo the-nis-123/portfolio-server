@@ -15,24 +15,31 @@ module.exports = async (req, res) => {
     //from the normal flow
 
     //we fetch th user, on a login attempt
-    const foundUser = await User.find();
+    const user = await User.find().select({
+      email:1, password:1, 
+      location: 1, name: 1, 
+      avatar: 1, _id: 1
+    });
+
 
     //for an additional protection layer, we encrypted both email and password
     //so we need to verify both email and password, in order to successfully login
     //the email could be any string as long as you remember it, 
     //not necessarily your public email
 
-    const validPassword = await bcrypt.compare(password, foundUser.password);
-    const validEmail = await bcrypt.compare(email, foundUser.email);
+    const validPassword = user?.password ? await bcrypt.compare(password, user.password) : true;
+    const validEmail = user?.email ? await bcrypt.compare(email, user.email): true;
+
+    console.log(validEmail, validPassword);
 
     if (validPassword && validEmail) {
       // create JWTs
       const accessToken = jwt.sign(
         {
-          "name": foundUser.name,
-          "location": foundUser.location,
-          "id": foundUser._id,
-          "avatar": foundUser.avatar
+          "name": user.name,
+          "location": user.location,
+          "id": user._id,
+          "avatar": user.avatar
         },
         process.env.ACCESS_TOKEN_SECRET_KEY,
         { expiresIn: '5m' }
@@ -40,20 +47,25 @@ module.exports = async (req, res) => {
           
       const newRefreshToken = jwt.sign(
           {
-            "name": foundUser.name,
-            "location": foundUser.location,
-            "id": foundUser._id,
-            "avatar": foundUser.avatar
+            "name": user.name,
+            "location": user.location,
+            "id": user._id,
+            "avatar": user.avatar
           },
           process.env.REFRESH_TOKEN_SECRET_KEY,
           { expiresIn: '1d' }
       );
 
       // Changed to let keyword
-      let newRefreshTokenArray =
-          !cookies?.jwt
-              ? foundUser.refreshToken
-              : foundUser.refreshToken.filter(rt => rt !== cookies.jwt);
+      let newRefreshTokenArray = [];
+        
+      if(!cookies?.jwt){
+        newRefreshTokenArray = user.refreshToken ? user.refreshToken : [];
+      }
+
+      if(cookies?.jwt){
+        newRefreshTokenArray = user.refreshToken.filter(rt => rt !== cookies.jwt);
+      }
 
       if (cookies?.jwt) {
 
@@ -75,9 +87,12 @@ module.exports = async (req, res) => {
         res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
       }
   
+      console.log(newRefreshTokenArray)
+
       // Saving refreshToken with current user
-      foundUser.refreshToken = [...newRefreshTokenArray, newRefreshToken];
-      const result = await foundUser.save();
+      const result = await User.updateOne({name: "kintu denis"}, {
+        $addToSet: {refreshToken: newRefreshToken}
+      });
 
       // Creates Secure Cookie with refresh token
       res.cookie('jwt', newRefreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
@@ -85,7 +100,8 @@ module.exports = async (req, res) => {
       res.status(200).json({ accessToken });
 
     } else {
-        res.sendStatus(401);
+      console.log("error");
+      res.sendStatus(401);
     }
   } catch (err) {
     req.error = err;

@@ -9,12 +9,10 @@ const BioSchema = new mongoose.Schema({
   avatar: {type: String},
   resume: { type: String },
   gallery: { type: [String] },
-  refreshToken: [String],
+  refreshToken: {type: [String], default: []},
   intro: {type: String},
   motivation: {type: String},
   hobbies: {type: [String]},
-  skills: {type: [Object]},
-  otherSkills: {type: [String]},
   education: {type: [Object]},
   socialHandles: {type: [Object]},
   highlights: {type: [Object]}
