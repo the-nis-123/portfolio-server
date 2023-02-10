@@ -8,7 +8,10 @@ module.exports = async (req, res) => {
       highlights, ...newData
     } = req.body;
 
+
     let filesObject = req?.files || null;
+
+    console.log(filesObject);
 
     let resume = filesObject?.resume? filesObject.resume[0].filename : "";
     let avatar = filesObject?.avatar? filesObject.avatar[0].filename : "";

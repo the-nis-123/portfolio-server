@@ -9,7 +9,7 @@ const ProjectSchema = new mongoose.Schema({
   role: { type: String, required: true },
   description: { type: String, required: true },
   achievements: { type: String, required: true },
-  teckStack: { type: [mongoose.ObjectId], ref:"Skill",  required: true },
+  teckStack: { type: [mongoose.ObjectId], ref:"Skill",  required: false },
   activeUrl: { type: String },
   sourceUrl: { type: String }
 }, {collection: "projects"});
